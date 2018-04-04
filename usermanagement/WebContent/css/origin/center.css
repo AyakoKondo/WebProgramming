@@ -1,0 +1,9 @@
+.main {  
+    width: 100%;  
+    border: 1px solid #000;  
+}  
+.main div   {  
+    width: 80%;  
+    border: 1px solid #FF0000;  
+    margin: 0 auto;  
+}  
