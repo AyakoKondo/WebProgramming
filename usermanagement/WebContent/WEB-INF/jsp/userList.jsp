@@ -28,7 +28,7 @@
 	<div class="container">
 		<div class="page-title">
 		     <h1>ユーザ一覧</h1>
-		     <h2><a href="user-registration.html">新規登録</a></h2>
+		     <h2><a href="UserCreateServlet">新規登録</a></h2>
 		</div>
 	</div>
      
@@ -37,18 +37,18 @@
        	<div class="form-group row">
        		<label for="code" class="col-sm-2 col-form-label">ログインID</label>
        		<div class="col-sm-10">
-       		     <input type="text" name="login-id" id="login-id" class="form-control">
+       		     <input type="text" name="loginId" id="login-id" class="form-control">
        		</div>
        	</div>
        	<div class="form-group row">
        		<label for="inputUserName" class="col-sm-2 col-form-label">ユーザ名</label>
        		<div class="col-sm-10">
-       			<input type="text" name="user-name" id="user-name" class="form-control">
+       			<input type="text" name="name" id="user-name" class="form-control">
        		</div>
        	</div>
-       	</form>	
        	
-        <form class="form-inline" method="post" action="#">	
+       	
+        <div class="form-inline">	
        		<div class="form-group row">
        			<label for="inputBirthday" class="col-sm-2 col-form-label">生年月日</label>
        			<div class="col-sm-10">
@@ -58,6 +58,7 @@
        			<button type="submit" value="検索" class="btn btn-primary form-submit">検索</button>
        		</div>
        		</div>
+       	</div>
        	</form>
        </div>
        <hr>

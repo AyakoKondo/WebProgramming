@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,9 +15,9 @@
 <body>
 	<header>
 		<div class="container">
-			<div class="header-out"><a href="#" class="logout">ログアウト</a>
+			<div class="header-out"><a href="LogoutServlet" class="logout">ログアウト</a>
 			</div>
-			<div class="header-user">ユーザ名さん
+			<div class="header-user">${userInfo.name}さん
 			</div>
 		</div>
 	</header>
@@ -29,31 +33,31 @@
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">ログインID</label>
 			<div class="col-sm-8">
-				<p class="form-control-static">id0001</p>
+				<p class="form-control-static">${userDetail.loginId}</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">ユーザ名</label>
 	  		<div class="col-sm-8">
-	    		<p class="form-control-static">田中太郎</p>
+	    		<p class="form-control-static">${userDetail.name}</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">生年月日</label>
 	 		 <div class="col-sm-8">
-	    		<p class="form-control-static">1989年04月26日</p>
+	    		<p class="form-control-static">${userDetail.birthDate}</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">登録日時</label>
 			<div class="col-sm-8">
-				<p class="form-control-static">2017年01月01日 10:50</p>
+				<p class="form-control-static">${userDetail.createDate}</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			 <label class="col-sm-4 col-form-label">更新日時</label>
 			<div class="col-sm-8">
-				<p class="form-control-static">2017年02月01日 01:05</p>
+				<p class="form-control-static">${userDetail.updateDate}</p>
 	  		 </div>
 		</div>
 
@@ -61,7 +65,7 @@
 
 
 	 <div class="back">
-       	<a href="#">戻る</a>
+       	<a href="UserListServlet">戻る</a>
      </div>
 
 </body>

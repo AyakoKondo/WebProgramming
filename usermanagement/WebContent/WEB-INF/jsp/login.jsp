@@ -25,7 +25,7 @@
 		<img class="mb-4" src="illust/magnifier_animal_neko.png" alt="" width=143 height=200>
 		<h1 class="h3 mb-3 font-weight-normal">ログイン画面</h1>
 		
-			<c:if test="${errMsg != null}" >
+	<c:if test="${errMsg != null}" >
 	    <div class="alert alert-danger" role="alert">
 		  ${errMsg}
 		</div>

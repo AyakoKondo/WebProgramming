@@ -10,13 +10,49 @@ public class User {
 	private String password;
 	private String createDate;
 	private String updateDate;
-
+	private String password2;
+	
+	
+	public User() {
+		
+	}
+	
 	// ログインセッションを保存するためのコンストラクタ
 	public User(String loginId, String name) {
 		this.loginId = loginId;
 		this.name = name;
 	}
-
+	//ID検索用のコンストラクタ
+	public User(String loginId) {
+		this.loginId = loginId;
+	}
+	
+	
+	//新規登録のためのコンストラクタ
+	public User(String loginId, String password,  String password2, String name, Date birthDate,String createDate,
+			String updateDate) {
+		this.loginId = loginId;
+		this.password = password;
+		this.password2 = password2;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.createDate = createDate;
+		this.updateDate = updateDate;		
+	}
+	
+	//詳細参照用のコンストラクタ
+	public User(String loginId,String name,Date birthDate,String createDate,String updateDate) {
+		this.loginId = loginId;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+	}
+	
+	
+	
+	
+	
 	// 全てのデータをセットするコンストラクタ
 	public User(int id, String loginId, String name, Date birthDate, String password, String createDate,
 			String updateDate) {
@@ -28,6 +64,7 @@ public class User {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -70,9 +107,12 @@ public class User {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-
-
-
-
-
+	public String getPassword2() {
+		return password2;
+	}
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
+	
 }
+	
