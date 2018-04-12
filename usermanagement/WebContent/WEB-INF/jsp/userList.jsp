@@ -33,17 +33,17 @@
 	</div>
      
        <div class="search-form">
-       <form method="post" action="#">
+       <form action="UserListServlet" method="post">
        	<div class="form-group row">
        		<label for="code" class="col-sm-2 col-form-label">ログインID</label>
        		<div class="col-sm-10">
-       		     <input type="text" name="loginId" id="login-id" class="form-control">
+       		     <input type="text" name="loginId" id="loginId" class="form-control">
        		</div>
        	</div>
        	<div class="form-group row">
        		<label for="inputUserName" class="col-sm-2 col-form-label">ユーザ名</label>
        		<div class="col-sm-10">
-       			<input type="text" name="name" id="user-name" class="form-control">
+       			<input type="text" name="name" id="name" class="form-control">
        		</div>
        	</div>
        	
@@ -52,7 +52,7 @@
        		<div class="form-group row">
        			<label for="inputBirthday" class="col-sm-2 col-form-label">生年月日</label>
        			<div class="col-sm-10">
-       				<input type="date" name="date-start" id="date-start" class="form-control" >  ～  <input type="date" name="date-end" id="date-end"  class="form-control">
+       				<input type="date" name="birthDate" id="date-start" class="form-control" >  ～  <input type="date" name="birthDate" id="date-end"  class="form-control">
        			</div>
        		<div class="search-button">
        			<button type="submit" value="検索" class="btn btn-primary form-submit">検索</button>

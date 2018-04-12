@@ -12,18 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
 import model.User;
-
 /**
- * Servlet implementation class UserCreateServlet
+ * Servlet implementation class UpdateServlet
  */
-@WebServlet("/UserCreateServlet")
-public class UserCreateServlet extends HttpServlet {
+@WebServlet("/UserUpdateServlet")
+public class UserUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserCreateServlet() {
+    public UserUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,53 +31,47 @@ public class UserCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		// URLからGETパラメータとしてIDを受け取る
+				String id = request.getParameter("id");
+			
+				// 確認用：idをコンソールに出力
+				System.out.println(id);
+				
+				// TODO  idを引数にして、idに紐づくユーザ情報を出力する
+				UserDao userDao = new UserDao();
+				User user = userDao.findByUserId(id);
+				
+		
+				// TODO  ユーザ情報をリクエストスコープにセットしてjspにフォワード
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("userUpdate", user);
 
-		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
-		
-		
-		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
-		dispatcher.forward(request, response);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
+				dispatcher.forward(request, response);
 	}
+				
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		request.setCharacterEncoding("UTF-8");
-		// リクエストパラメータの入力項目を取得
 		
-		String loginId = request.getParameter("loginId");
+		//更新なのでPOST
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 		String name = request.getParameter("name");
 		String birthDate = request.getParameter("birthDate");
-
+		String id = request.getParameter("id");						//idをhiddenでもらう
 		
 		User user = new User();
 		UserDao userDao = new UserDao();
 		
-		/** テーブルに同じログインIDが存在した場合*/
-		if (!userDao.isCheckLoginId(loginId)) {
-			// リクエストスコープにエラーメッセージをセット
-			request.setAttribute("errMsg", "ログインIDが既に登録されています。");
-
-			// ログインjspにフォワード
-			
-			request.setAttribute("loginId", loginId);
-			request.setAttribute("name",name);
-			request.setAttribute("birthDate", birthDate);
-			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		
-				
 		if(!password.equals(password2)) {						//文字列の一致はequals()メソッドで行う
 			request.setAttribute("errMsg", "パスワードが一致しません");
 
@@ -86,70 +79,54 @@ public class UserCreateServlet extends HttpServlet {
 			//パスワードとパスワード(確認）の入力内容が異なる場合
 			//入力項目に1つでも未入力がある場合
 			
-			request.setAttribute("loginId", loginId);
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if(loginId.equals("")) {
-			request.setAttribute("errMsg", "ログインIDが未入力です");
-			
-			request.setAttribute("loginId", loginId);
-			request.setAttribute("name",name);
-			request.setAttribute("birthDate", birthDate);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
 		if(password.equals("")) {
 			request.setAttribute("errMsg", "パスワードが未入力です");
 			
-			request.setAttribute("loginId", loginId);
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
 		if(password2.equals("")) {
 			request.setAttribute("errMsg", "パスワード（確認）が未入力です");
 			
-			request.setAttribute("loginId", loginId);
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
 		if(name.equals("")) {
 			request.setAttribute("errMsg", "ユーザ名が未入力です");
 			
-			request.setAttribute("loginId", loginId);
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
 		if(birthDate.equals("")) {
 			request.setAttribute("errMsg", "生年月日が未入力です");
 			
-			request.setAttribute("loginId", loginId);
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}																//登録失敗・・・新規登録画面に戻る
@@ -160,21 +137,20 @@ public class UserCreateServlet extends HttpServlet {
 		
 		
 		
-
-		//登録
-		userDao.createUser(loginId,  password, password2 , name, birthDate);
+		
+		userDao.updateUser(id,password, password2 , name, birthDate);
 		
 		
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("userregist", user);
+		session.setAttribute("userUpdateData", user);
 
 		// ユーザ一覧のサーブレットにリダイレクト
 		response.sendRedirect("UserListServlet");
-
-		}
-	//登録成功時 ユーザ一覧画面に遷移する
 		
-
+		//登録成功時 ユーザ一覧画面に遷移する
+		
+		
 	}
 
+}

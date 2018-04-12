@@ -1,5 +1,9 @@
 package dao;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import model.User;
 
@@ -32,7 +38,7 @@ public class UserDao {
              // SELECTを実行し、結果表を取得
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, loginId);
-            pStmt.setString(2, password);
+            pStmt.setString(2, convertMd5(password));
             ResultSet rs = pStmt.executeQuery();
 
              // 主キーに紐づくレコードは1件のみなので、rs.next()は1回だけ行う
@@ -75,7 +81,7 @@ public class UserDao {
     		 String sql = "INSERT INTO user (login_id,name,birth_date,password,create_date,update_date) VALUES (?,?,?,?,now(), now())";
     		//now()現在時刻
     		     		 
-    		 //insertを実行し、結果表を取得
+    		 //insertを実行
     		 PreparedStatement pStmt = conn.prepareStatement(sql);
     		 
     		 //新規登録のときは追加レコード１つなので数える必要なし?
@@ -84,7 +90,7 @@ public class UserDao {
     		 pStmt.setString(1, loginId);        //preparedstatementのため必要
     		 pStmt.setString(2, name);
              pStmt.setString(3, birthDate);			
-             pStmt.setString(4, password);
+             pStmt.setString(4, convertMd5(password));
             
              pStmt.executeUpdate();
 //             System.out.println(result);
@@ -149,8 +155,8 @@ public class UserDao {
     
     
     
-//ユーザ詳細参照用のDaoメソッド
- public User findByUserDetail(String id) {
+    //ユーザ詳細参照用のDaoメソッド
+    public User findByUserDetail(String id) {
         Connection conn = null;
         try {
             // データベースへ接続
@@ -193,9 +199,145 @@ public class UserDao {
             }
         }
     }
+    //iD入りのDaoメソッド
+    public User findByUserId(String id) {
+        Connection conn = null;
+        try {
+            // データベースへ接続
+            conn = DBManager.getConnection();
 
+            // SELECT文を準備
+            String sql = "SELECT id,login_id,name,birth_date FROM user WHERE id = ?";
+
+             // SELECTを実行し、結果表を取得
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, id);
+            
+            ResultSet rs = pStmt.executeQuery();
+
+             // 主キーに紐づくレコードは1件のみなので、rs.next()は1回だけ行う
+            if (!rs.next()) {
+                return null;
+            }
+
+            String idData = rs.getString("id");
+            String loginIdData = rs.getString("login_id");
+            String nameData = rs.getString("name");
+            Date birthDate = rs.getDate("birth_date");
+           
+            
+            return new User(idData,loginIdData, nameData,birthDate);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // データベース切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+    }
     
-     // 全てのユーザ情報を取得する
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	//更新用のDaoメソッド
+	
+	public void updateUser(String id, String password, String password2 , String name, String birthDate) {
+		 Connection conn = null;
+	     try {
+	         // データベースへ接続
+	         conn = DBManager.getConnection();
+	
+	         // update文を準備
+	         String sql = "UPDATE user SET name = ? ,birth_date = ?,password= ? ,update_date = now() WHERE id = ?";
+	
+	          // updateを実行し、結果表を取得
+	         PreparedStatement pStmt = conn.prepareStatement(sql);
+	        
+			 pStmt.setString(1, name);				//preparedstatementのため必要
+	         pStmt.setString(2, birthDate);			
+	         pStmt.setString(3, convertMd5(password));
+	         pStmt.setString(4, id);
+	         
+	         
+	        int result = pStmt.executeUpdate();
+	        System.out.println(result);             //更新箇所の数確認用
+	
+	
+	      
+	     } catch (SQLException e) {
+	         e.printStackTrace();
+	         
+	     } finally {
+	         // データベース切断
+	         if (conn != null) {
+	             try {
+	                 conn.close();
+	             } catch (SQLException e) {
+	                 e.printStackTrace();
+	               
+	             }
+	         }
+	     }
+	 }
+		 
+	 //削除用のDaoメソッド
+	public void deleteUser(String id) {
+		 Connection conn = null;
+	    try {
+	        // データベースへ接続
+	        conn = DBManager.getConnection();
+	
+	        // delete文を準備
+	        String sql = "DELETE FROM user WHERE id = ?";
+	
+	         // deleteを実行	       
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	       
+	        pStmt.setString(1, id);
+	        
+	        int result = pStmt.executeUpdate();
+	        System.out.println(result);
+	       
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        
+	    } finally {
+	        // データベース切断
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	              
+	            }
+	        }
+	    }
+	}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+ 
+ // 全てのユーザ情報を取得する
       //@return
  
     public List<User> findAll() {
@@ -207,9 +349,9 @@ public class UserDao {
             conn = DBManager.getConnection();
 
             // SELECT文を準備
-            // TODO: 未実装：管理者以外を取得するようSQLを変更する
-            String sql = "SELECT * FROM user";
-
+            // TODO: 管理者以外を取得するようSQLを変更する		where not in ()でそれ以外
+            String sql = "SELECT * FROM user where login_id  not in ('admin') ORDER BY login_id";
+            
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -244,5 +386,83 @@ public class UserDao {
         }
         return userList;
     }
-}
+    
+    private String convertMd5(String password) {
+    	//ハッシュ生成前にバイト配列に置き換える際のCharset
+    	Charset charset = StandardCharsets.UTF_8;
+    	//ハッシュアルゴリズム
+    	String algorithm = "MD5";
 
+    	//ハッシュ生成処理
+    	byte[] bytes= null;
+		try {
+			bytes = MessageDigest.getInstance(algorithm).digest(password.getBytes(charset));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+    	String result = DatatypeConverter.printHexBinary(bytes);
+
+    	return result;
+    }
+    
+//    public List<User> findSearch(String loginId,String name,String birthDate) {
+//        Connection conn = null;
+//        List<User> userList = new ArrayList<User>();
+//
+//        try {
+//            // データベースへ接続
+//            conn = DBManager.getConnection();
+//
+//            // SELECT文を準備
+//            // TODO: 管理者以外を取得するようSQLを変更する
+//            String sql = "SELECT * FROM user where login_id  not in ('admin')";
+//            
+//            if(!loginId.equals("")) {
+//            	sql += " and login_id '" + loginId + "'";
+//            }
+//            if(!name.equals("")) {
+//            	sql +=" and name '"+name + "'";
+//            }
+//            if(!birthDate.equals("")) {
+//            	sql +=" and birthDate '"+birthDate + "'";
+//            }
+//            
+//            sql += " ORDER BY login_id";
+//            
+//             // SELECTを実行し、結果表を取得
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(sql);
+//
+//            // 結果表に格納されたレコードの内容を
+//            // Userインスタンスに設定し、ArrayListインスタンスに追加
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String loginId = rs.getString("login_id");
+//                String name = rs.getString("name");
+//                Date birthDate = rs.getDate("birth_date");
+//                String password = rs.getString("password");
+//                String createDate = rs.getString("create_date");
+//                String updateDate = rs.getString("update_date");
+//                User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
+//
+//                userList.add(user);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        } finally {
+//            // データベース切断
+//            if (conn != null) {
+//                try {
+//                    conn.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                    return null;
+//                }
+//            }
+//        }
+//        return userList;
+//    }
+    
+}

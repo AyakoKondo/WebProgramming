@@ -14,16 +14,16 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class UserDetailServlet
+ * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/UserDetailServlet")
-public class UserDetailServlet extends HttpServlet {
+@WebServlet("/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserDetailServlet() {
+    public UserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,17 +41,15 @@ public class UserDetailServlet extends HttpServlet {
 		
 		// TODO  idを引数にして、idに紐づくユーザ情報を出力する
 		UserDao userDao = new UserDao();
-		User user = userDao.findByUserDetail(id);
-		
-		
+		User user = userDao.findByUserId(id);
 		
 
 		// TODO  ユーザ情報をリクエストスコープにセットしてjspにフォワード
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("userDetail", user);
+		session.setAttribute("userDelete", user);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-detail.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-delete.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -60,8 +58,19 @@ public class UserDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String id = request.getParameter("id");
+		
+		User user = new User();
+		UserDao userDao = new UserDao();
+		userDao.deleteUser(id);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("userDeleteData", user);
+		
+		
+		// ユーザ一覧のサーブレットにリダイレクト
+		response.sendRedirect("UserListServlet");
 	}
 
 }

@@ -9,6 +9,11 @@ li{
 a{
 	text-decoration: none;
 }
+
+form{
+	float:left;
+}
+
 .container {
   width: 1170px;
   padding: 0 15px;

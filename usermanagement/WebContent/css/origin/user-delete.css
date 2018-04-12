@@ -8,6 +8,7 @@ li{
 }
 a{
 	text-decoration: none;
+	float:left;
 }
 .container {
   width: 1170px;

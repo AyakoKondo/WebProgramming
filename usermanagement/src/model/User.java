@@ -29,15 +29,16 @@ public class User {
 	
 	
 	//新規登録のためのコンストラクタ
-	public User(String loginId, String password,  String password2, String name, Date birthDate,String createDate,
-			String updateDate) {
+	public User(String loginId, String password,  String password2, String name, Date birthDate)
+	//,String createDate,String updateDate) 
+	{
 		this.loginId = loginId;
 		this.password = password;
 		this.password2 = password2;
 		this.name = name;
 		this.birthDate = birthDate;
-		this.createDate = createDate;
-		this.updateDate = updateDate;		
+//		this.createDate = createDate;
+//		this.updateDate = updateDate;		
 	}
 	
 	//詳細参照用のコンストラクタ
@@ -49,7 +50,13 @@ public class User {
 		this.updateDate = updateDate;
 	}
 	
-	
+	//更新データ参照用のコンストラクタ
+	public User(String id,String loginId,String name, Date birthDate) {
+		this.id = Integer.parseInt(id);
+		this.loginId = loginId;
+		this.name = name;
+		this.birthDate = birthDate;
+	}
 	
 	
 	

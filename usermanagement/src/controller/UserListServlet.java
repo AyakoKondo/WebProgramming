@@ -34,7 +34,6 @@ public class UserListServlet extends HttpServlet {
 		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
 		
 		
-		
 		// ユーザ一覧情報を取得
 		UserDao userDao = new UserDao();
 		List<User> userList = userDao.findAll();
@@ -52,6 +51,13 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO  未実装：検索処理全般
+		//ログインID(完全一致）
+		//ユーザ名（部分一致）
+		//生年月日（開始日と終了日の範囲内の日付に該当するもの）で検索可能
+		request.setCharacterEncoding("UTF-8");
+		
+		
+	
 	}
 
 }
