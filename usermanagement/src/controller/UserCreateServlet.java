@@ -80,7 +80,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -98,7 +98,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -109,7 +109,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -120,7 +120,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("name",name);
 			request.setAttribute("birthDate", birthDate);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -132,7 +132,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -144,7 +144,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -156,7 +156,7 @@ public class UserCreateServlet extends HttpServlet {
 			request.setAttribute("birthDate", birthDate);
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-registration.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}																//登録失敗・・・新規登録画面に戻る

@@ -86,7 +86,7 @@
 			                    <a class="btn btn-success" href="UserUpdateServlet?id=${user.id}">更新</a>
 			                    </c:if> 
 			                    <c:if test ="${userInfo.loginId =='admin'}">
-			                    <a class="btn btn-danger" href ="UserDeleteServlet?id=${user.id}">5tf削除</a>
+			                    <a class="btn btn-danger" href ="UserDeleteServlet?id=${user.id}">削除</a>
 								</c:if>       
 			                </td>
        					</tr>

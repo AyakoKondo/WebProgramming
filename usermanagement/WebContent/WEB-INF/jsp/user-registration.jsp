@@ -38,7 +38,7 @@
 		<div class="form-group row">
 			<label for="example-text-input" class="col-4 col-form-label">ログインID</label>
 			<div class="col-8">
-				<input class="form-control" type="text" name="loginId" id="example-text-input">
+				<input class="form-control" type="text" name="loginId" id="example-text-input" value="${loginId}">
 			</div>
 		</div>
 		<div class="form-group row">
@@ -56,13 +56,13 @@
 		<div class="form-group row">
 			<label for="example-text-input" class="col-4 col-form-label">ユーザ名</label>
 			<div class="col-8">
-				<input class="form-control" type="text" name="name" id="example-text-input">
+				<input class="form-control" type="text" name="name" id="example-text-input" value="${name}">
 			</div>
 		</div>
 		<div class="form-group row">
 			 <label for="example-date-input" class="col-4 col-form-label">生年月日</label>
 			 <div class="col-8">
-			 	<input class="form-control" type="date" name="birthDate" id="example-date-input">
+			 	<input class="form-control" type="date" name="birthDate" id="example-date-input" value="${birthDate}">
 	  		 </div>
 		</div><%--now()でcreateDate,updateDate指定してあるのでhiddenで値を受け取る必要なし --%>
 			

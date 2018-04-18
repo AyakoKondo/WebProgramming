@@ -87,27 +87,7 @@ public class UserUpdateServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
-		if(password.equals("")) {
-			request.setAttribute("errMsg", "パスワードが未入力です");
-			
-			request.setAttribute("name",name);
-			request.setAttribute("birthDate", birthDate);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if(password2.equals("")) {
-			request.setAttribute("errMsg", "パスワード（確認）が未入力です");
-			
-			request.setAttribute("name",name);
-			request.setAttribute("birthDate", birthDate);
-			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user-update.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
+		
 		if(name.equals("")) {
 			request.setAttribute("errMsg", "ユーザ名が未入力です");
 			

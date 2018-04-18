@@ -74,10 +74,10 @@ public class UserListServlet extends HttpServlet {
 		
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット
-		request.setAttribute("userSearch", userSearch);
+		request.setAttribute("userList", userSearch);
 
 		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList2.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
 		dispatcher.forward(request, response);
 	
 
