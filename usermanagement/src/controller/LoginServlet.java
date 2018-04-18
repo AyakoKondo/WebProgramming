@@ -31,14 +31,23 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 
+		
+		// TODO 未実装：ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
+		HttpSession session = request.getSession();
+		
+		User user = (User)session.getAttribute("userInfo");
+		if(null!=user) {
+			response.sendRedirect("UserListServlet");
+			return;
+		}
+		
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 		
-		// TODO 未実装：ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
 		
-		// ユーザ一覧のサーブレットにリダイレクト
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

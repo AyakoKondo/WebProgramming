@@ -73,7 +73,7 @@
        				</tr>
        			</thead>
        			<tbody>
-       			 	<c:forEach var="user" items="${userList}" >
+       			 	<c:forEach var="user" items="${userSearch}" >
        					<tr>
 	       					<td>${user.loginId}</td>
                      		<td>${user.name}</td>
@@ -82,11 +82,11 @@
                      		<td>
 	                     		<a class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</a>
 			                    
-			                    <c:if test ="${userInfo.loginId =='admin' || userInfo.loginId == user.loginId}">
+			                    <c:if test ="${userInfo.name == '管理者' || '${user.name}'}"><!-- 何と一致したら？？？ -->
 			                    <a class="btn btn-success" href="UserUpdateServlet?id=${user.id}">更新</a>
 			                    </c:if> 
-			                    <c:if test ="${userInfo.loginId =='admin'}">
-			                    <a class="btn btn-danger" href ="UserDeleteServlet?id=${user.id}">5tf削除</a>
+			                    <c:if test ="${userInfo.name =='管理者'}">
+			                    <a class="btn btn-danger" href ="UserDeleteServlet?id=${user.id}">削除</a>
 								</c:if>       
 			                </td>
        					</tr>

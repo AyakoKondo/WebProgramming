@@ -406,63 +406,66 @@ public class UserDao {
     	return result;
     }
     
-//    public List<User> findSearch(String loginId,String name,String birthDate) {
-//        Connection conn = null;
-//        List<User> userList = new ArrayList<User>();
-//
-//        try {
-//            // データベースへ接続
-//            conn = DBManager.getConnection();
-//
-//            // SELECT文を準備
-//            // TODO: 管理者以外を取得するようSQLを変更する
-//            String sql = "SELECT * FROM user where login_id  not in ('admin')";
-//            
-//            if(!loginId.equals("")) {
-//            	sql += " and login_id '" + loginId + "'";
-//            }
-//            if(!name.equals("")) {
-//            	sql +=" and name '"+name + "'";
-//            }
-//            if(!birthDate.equals("")) {
-//            	sql +=" and birthDate '"+birthDate + "'";
-//            }
-//            
-//            sql += " ORDER BY login_id";
-//            
-//             // SELECTを実行し、結果表を取得
-//            Statement stmt = conn.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//
-//            // 結果表に格納されたレコードの内容を
-//            // Userインスタンスに設定し、ArrayListインスタンスに追加
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String loginId = rs.getString("login_id");
-//                String name = rs.getString("name");
-//                Date birthDate = rs.getDate("birth_date");
-//                String password = rs.getString("password");
-//                String createDate = rs.getString("create_date");
-//                String updateDate = rs.getString("update_date");
-//                User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
-//
-//                userList.add(user);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        } finally {
-//            // データベース切断
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                    return null;
-//                }
-//            }
-//        }
-//        return userList;
-//    }
+    public List<User> findSearch(String loginId,String name,String birthDateStart,String birthDateEnd) {
+       Connection conn = null;
+        List<User> userList = new ArrayList<User>();
+
+        try {
+            // データベースへ接続
+            conn = DBManager.getConnection();
+
+            // SELECT文を準備
+            // TODO: 管理者以外を取得するようSQLを変更する
+            String sql = "SELECT * FROM user where login_id  not in ('admin')";
+            
+            if(!loginId.equals("")) {
+           	sql += " and login_id  = '" + loginId + "'";//完全一致
+            }
+            if(!name.equals("")) {
+            	sql +=" and name like '%"+name + "%'";//部分一致
+            }
+            if(!birthDateStart.equals("")) {
+            	sql +=" and birth_date > '"+birthDateStart + "'";//範囲
+            }
+            if(!birthDateEnd.equals("")) {
+            	sql +=" and birth_date < '"+birthDateEnd + "'";//範囲
+            }
+           
+            sql += " ORDER BY login_id";
+            
+             // SELECTを実行し、結果表を取得
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // 結果表に格納されたレコードの内容を
+            // Userインスタンスに設定し、ArrayListインスタンスに追加
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String loginIdData = rs.getString("login_id");
+                String nameData = rs.getString("name");
+                Date birthDateData = rs.getDate("birth_date");
+                String password = rs.getString("password");
+                String createDate = rs.getString("create_date");
+                String updateDate = rs.getString("update_date");
+                User user = new User(id, loginIdData, nameData, birthDateData, password, createDate, updateDate);
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // データベース切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+        return userList;
+    	} 
     
 }

@@ -33,7 +33,14 @@ public class UserCreateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
+		HttpSession session = request.getSession();
+		
+		User user = (User)session.getAttribute("userInfo");
+		if(null == user) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
+		// ログインセッションがない場合、ログイン画面にリダイレクトさせる
 		
 		
 		
